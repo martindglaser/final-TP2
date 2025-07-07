@@ -1,9 +1,22 @@
 import express from "express"
 import routes from "./routes/routes.js"
+import jsonErrorHandler from "./middlewares/jsonErrorHandler.js";
 
 const app= express()
 
-app.use(express.json())
+app.use(express.json({
+  strict: true, // solo acepta objetos o arrays JSON
+  verify: (req, res, buf, encoding) => {
+    try {
+      JSON.parse(buf);
+    } catch (e) {
+      throw new SyntaxError('JSON inválido');
+    }
+  }
+}));
+
+app.use(jsonErrorHandler);
+
 app.use(express.urlencoded({extended:true}))
 
 

@@ -1,11 +1,8 @@
 import { Router } from "express";
-import controller from "../container/container.js"
-import inputValidates from "../midlewares/inputValidates.js";
+import notasRoutes from "./notasRoutes.js";
 
 const routes = Router();
-routes.get("/", controller.getAll);
-routes.post("/",inputValidates, controller.create);
-routes.get("/notas/agrupadas", controller.getNotasAgrupadas);
 
+routes.use("/notas", notasRoutes);
 
 export default routes;

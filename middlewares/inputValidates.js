@@ -1,7 +1,7 @@
 const inputValidates = async (req, res, next) => {
   const { nombre, apellido, nota } = req.body;
 
-  if (!nombre || !nota || !apellido) {
+  if (!nombre || nota === undefined || nota === null || !apellido) {
     res.status(404).send({ message: "Faltan datos" });
     return;
   }
@@ -12,7 +12,7 @@ const inputValidates = async (req, res, next) => {
   }
 
   if (nota < 0 || nota > 10) {
-    return res.status(400).json({ error: "La nota debe estar entre 1 y 10." });
+    return res.status(400).json({ error: "La nota debe estar entre 0 y 10." });
   }
 
   if (typeof nombre !== "string") {
